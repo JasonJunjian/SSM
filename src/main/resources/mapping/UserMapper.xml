@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssm.dao.UserDao">
+
+    <resultMap id="UserBaseMap" type="com.ssm.model.User">
+        <result column="id" property="ID" jdbcType="INTEGER"/>
+        <result column="createTime" property="CreateTime" jdbcType="DATE"/>
+        <result column="state" property="STATE" jdbcType="INTEGER"/>
+        <result column="loginName" property="LoginName" jdbcType="VARCHAR"/>
+        <result column="userName" property="UserName" jdbcType="VARCHAR"/>
+        <result column="password" property="Password" jdbcType="VARCHAR"/>
+        <result column="loginTimes" property="LoginTimes" jdbcType="INTEGER"/>
+        <result column="latestLoginTime" property="LatestLoginTime" jdbcType="DATE"/>
+        <result column="currLoginTime" property="CurrLoginTime" jdbcType="DATE"/>
+        <result column="latestLoginIP" property="LatestLoginIP" jdbcType="VARCHAR"/>
+        <result column="currLoginIP" property="CurrLoginIP" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectUserById" parameterType="java.lang.Long" resultMap="UserBaseMap">
+        SELECT * FROM t_user
+        WHERE id = #{userId}
+    </select>
+
+    <select id="selectUserByPhoneOrEmail" resultMap="UserBaseMap">
+        SELECT * FROM t_user
+        WHERE user_email = #{emailOrPhone} OR user_phone = #{emailOrPhone}
+        AND user_state = #{state}
+    </select>
+
+    <select id="selectAllUser" resultMap="UserBaseMap">
+        SELECT * FROM [USER]
+    </select>
+
+</mapper>

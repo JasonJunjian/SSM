@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssm.dao.SysmenuMapper" >
+  <resultMap id="BaseResultMap" type="com.ssm.model.Sysmenu" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="UpdateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="State" property="state" jdbcType="INTEGER" />
+    <result column="MenuName" property="menuname" jdbcType="NVARCHAR" />
+    <result column="Controller" property="controller" jdbcType="NVARCHAR" />
+    <result column="Action" property="action" jdbcType="NVARCHAR" />
+    <result column="ParentId" property="parentid" jdbcType="INTEGER" />
+    <result column="MenuLevel" property="menulevel" jdbcType="INTEGER" />
+    <result column="IsView" property="isview" jdbcType="BIT" />
+    <result column="ICON" property="icon" jdbcType="NVARCHAR" />
+    <result column="OrderNum" property="ordernum" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, UpdateTime, CreateTime, State, MenuName, Controller, Action, ParentId, MenuLevel, 
+    IsView, ICON, OrderNum
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ssm.model.SysmenuExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SysMenu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from SysMenu
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from SysMenu
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ssm.model.SysmenuExample" >
+    delete from SysMenu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ssm.model.Sysmenu" >
+    insert into SysMenu (ID, UpdateTime, CreateTime, 
+      State, MenuName, Controller, 
+      Action, ParentId, MenuLevel, 
+      IsView, ICON, OrderNum
+      )
+    values (#{id,jdbcType=INTEGER}, #{updatetime,jdbcType=TIMESTAMP}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{state,jdbcType=INTEGER}, #{menuname,jdbcType=NVARCHAR}, #{controller,jdbcType=NVARCHAR}, 
+      #{action,jdbcType=NVARCHAR}, #{parentid,jdbcType=INTEGER}, #{menulevel,jdbcType=INTEGER}, 
+      #{isview,jdbcType=BIT}, #{icon,jdbcType=NVARCHAR}, #{ordernum,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ssm.model.Sysmenu" >
+    insert into SysMenu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+      <if test="menuname != null" >
+        MenuName,
+      </if>
+      <if test="controller != null" >
+        Controller,
+      </if>
+      <if test="action != null" >
+        Action,
+      </if>
+      <if test="parentid != null" >
+        ParentId,
+      </if>
+      <if test="menulevel != null" >
+        MenuLevel,
+      </if>
+      <if test="isview != null" >
+        IsView,
+      </if>
+      <if test="icon != null" >
+        ICON,
+      </if>
+      <if test="ordernum != null" >
+        OrderNum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="menuname != null" >
+        #{menuname,jdbcType=NVARCHAR},
+      </if>
+      <if test="controller != null" >
+        #{controller,jdbcType=NVARCHAR},
+      </if>
+      <if test="action != null" >
+        #{action,jdbcType=NVARCHAR},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="menulevel != null" >
+        #{menulevel,jdbcType=INTEGER},
+      </if>
+      <if test="isview != null" >
+        #{isview,jdbcType=BIT},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="ordernum != null" >
+        #{ordernum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ssm.model.SysmenuExample" resultType="java.lang.Integer" >
+    select count(*) from SysMenu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SysMenu
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.updatetime != null" >
+        UpdateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createtime != null" >
+        CreateTime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.state != null" >
+        State = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuname != null" >
+        MenuName = #{record.menuname,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.controller != null" >
+        Controller = #{record.controller,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.action != null" >
+        Action = #{record.action,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.parentid != null" >
+        ParentId = #{record.parentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.menulevel != null" >
+        MenuLevel = #{record.menulevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.isview != null" >
+        IsView = #{record.isview,jdbcType=BIT},
+      </if>
+      <if test="record.icon != null" >
+        ICON = #{record.icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.ordernum != null" >
+        OrderNum = #{record.ordernum,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SysMenu
+    set ID = #{record.id,jdbcType=INTEGER},
+      UpdateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      CreateTime = #{record.createtime,jdbcType=TIMESTAMP},
+      State = #{record.state,jdbcType=INTEGER},
+      MenuName = #{record.menuname,jdbcType=NVARCHAR},
+      Controller = #{record.controller,jdbcType=NVARCHAR},
+      Action = #{record.action,jdbcType=NVARCHAR},
+      ParentId = #{record.parentid,jdbcType=INTEGER},
+      MenuLevel = #{record.menulevel,jdbcType=INTEGER},
+      IsView = #{record.isview,jdbcType=BIT},
+      ICON = #{record.icon,jdbcType=NVARCHAR},
+      OrderNum = #{record.ordernum,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ssm.model.Sysmenu" >
+    update SysMenu
+    <set >
+      <if test="updatetime != null" >
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="menuname != null" >
+        MenuName = #{menuname,jdbcType=NVARCHAR},
+      </if>
+      <if test="controller != null" >
+        Controller = #{controller,jdbcType=NVARCHAR},
+      </if>
+      <if test="action != null" >
+        Action = #{action,jdbcType=NVARCHAR},
+      </if>
+      <if test="parentid != null" >
+        ParentId = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="menulevel != null" >
+        MenuLevel = #{menulevel,jdbcType=INTEGER},
+      </if>
+      <if test="isview != null" >
+        IsView = #{isview,jdbcType=BIT},
+      </if>
+      <if test="icon != null" >
+        ICON = #{icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="ordernum != null" >
+        OrderNum = #{ordernum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ssm.model.Sysmenu" >
+    update SysMenu
+    set UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      State = #{state,jdbcType=INTEGER},
+      MenuName = #{menuname,jdbcType=NVARCHAR},
+      Controller = #{controller,jdbcType=NVARCHAR},
+      Action = #{action,jdbcType=NVARCHAR},
+      ParentId = #{parentid,jdbcType=INTEGER},
+      MenuLevel = #{menulevel,jdbcType=INTEGER},
+      IsView = #{isview,jdbcType=BIT},
+      ICON = #{icon,jdbcType=NVARCHAR},
+      OrderNum = #{ordernum,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
